@@ -1,5 +1,5 @@
 //height-leftist.h
-#define SWAP(a, b, t) a = t; a = b ; b = t;
+#define SWAP(a, b, t) {t = a; a = b; b = t;}
 
 typedef struct leftist *leftistTree;
 struct leftist{

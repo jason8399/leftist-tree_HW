@@ -1,3 +1,4 @@
+//height-leftist.c
 #include <stdio.h>
 #include <stdlib.h>
 #include "height-leftist.h"
@@ -5,16 +6,21 @@
 void insertNode(int N, leftistTree *root){
 	leftistTree node = (leftistTree)malloc(sizeof(leftist));
 	if(node){
+		node->data = N;
+		node->shortest = 0;
+		node->leftChild = node->rightChild = NULL;
 		minMeld(root, &node);
 	}
 }
 
 void deleteNode(leftistTree *root){
-	leftistTree remove = *root;
-	minMeld(&(*root)->leftChild, &(*root)->rightChild);
-	*root = (*root)->leftChild;
-	printf("%d\n", remove->data);
-	free(remove);
+	if(*root){
+		leftistTree remove = *root;
+		minMeld(&(*root)->leftChild, &(*root)->rightChild);
+		*root = (*root)->leftChild;
+		printf("%d\n", remove->data);
+		free(remove);
+	}
 }
 
 void minMeld(leftistTree *a, leftistTree *b){
@@ -31,7 +37,7 @@ void minUnion(leftistTree *a, leftistTree *b){
 	/*
 	 * recursively combine two nonempty min leftist trees
 	 */
-	leftistTree temp;
+	leftistTree temp = NULL;
 	/* set a to be the tree with smaller root */
 	if((*a)->data > (*b)->data) SWAP(*a, *b, temp);
 
