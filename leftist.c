@@ -107,32 +107,30 @@ void WminUnion(leftistTree *a, leftistTree *b){
 				(*nowA)->rightChild = *nowB;
 				if((*nowA)->leftChild->weight < (*nowA)->rightChild->weight)
 					SWAP((*nowA)->leftChild, (*nowA)->rightChild, temp);
-				if((*hisA)->leftChild->weight < (*hisA)->rightChild->weight)
-					SWAP((*hisA)->leftChild, (*hisA)->rightChild, temp);
 			}
-			//if((*nowA)->leftChild->weight < (*nowA)->rightChild->weight)
-			//	SWAP((*nowA)->leftChild, (*nowA)->rightChild, temp);
+			if(!(*hisA)->leftChild ){
+				SWAP((*hisA)->leftChild, (*hisA)->rightChild, temp);
+			}
+			else if (!(*hisA)->rightChild){
+			}
+			else if((*hisA)->leftChild->weight < (*hisA)->rightChild->weight){
+				SWAP((*hisA)->leftChild, (*hisA)->rightChild, temp);
+			}
 			break;
 		}
 		else{
+			if(!(*hisA)->leftChild ){
+				SWAP((*hisA)->leftChild, (*hisA)->rightChild, temp);
+				nowA = &(*hisA)->leftChild;
+			}
+			else if (!(*hisA)->rightChild){
+			}
+			else if((*hisA)->leftChild->weight < (*hisA)->rightChild->weight){
+				SWAP((*hisA)->leftChild, (*hisA)->rightChild, temp);
+				nowA = &(*hisA)->leftChild;
+			}
 			hisA = nowA;
 			nowA = &(*nowA)->rightChild;
 		}
 	}
-	if((*a)->rightChild)
-		if((*a)->leftChild->weight < (*a)->rightChild->weight)
-			SWAP((*a)->leftChild, (*a)->rightChild, temp);
-	/*for(nowA = a;;){
-		if(!(*nowA)->rightChild && !(*nowA)->leftChild) break;
-		if((*nowA)->rightChild){
-			if((*nowA)->leftChild->weight < (*nowA)->rightChild->weight){
-				SWAP((*nowA)->leftChild, (*nowA)->rightChild, temp);
-				nowA = &(*nowA)->leftChild;
-			}else{
-				nowA = &(*nowA)->rightChild;
-			}
-		}else{
-			nowA = &(*nowA)->leftChild;
-		}
-	}*/
 }
