@@ -66,7 +66,7 @@ int main(int argc, const char *argv[])
 	clock_t t;
 	long time;
 	leftistTree root = NULL;
-	if((inputStream = fopen("left tree.txt", "r")) == NULL){
+	if((inputStream = fopen("leftist tree.txt", "r")) == NULL){
 		fclose(inputStream);
 		exit(1);
 	}
