@@ -14,8 +14,8 @@ int maxHeight(leftistTree p)
     return (left_height > right_height) ? left_height + 1 : right_height + 1;
 }
 
-int _print_t(leftistTree *parent, int is_left, int offset, int depth, char s[20][255]){
-	char b[20];
+int _print_t(leftistTree *parent, int is_left, int offset, int depth, char s[80][1024]){
+	char b[80];
 	int i ,width = 5;
 
 	if (!*parent) return 0;
@@ -48,7 +48,7 @@ int _print_t(leftistTree *parent, int is_left, int offset, int depth, char s[20]
 }
 
 void print_tree(leftistTree *parent){
-	char s[20][255];
+	char s[80][1024];
 	int i;
 	for (i = 0; i < 20; i++)
 		sprintf(s[i], "%80s", " ");
@@ -95,9 +95,11 @@ int main(int argc, const char *argv[])
 		switch(inputString[0]){
 		case'i':
 			WinsertNode(atoi(&inputString[2]), &root);
+			//print_tree(&root);
 			break;
 		case'd':
 			WdeleteNode(&root);
+			//print_tree(&root);
 			break;
 		default:
 			puts("command not found.");

@@ -22,6 +22,9 @@ void deleteNode(leftistTree *root){
 		printf("%d\n", remove->data);
 		free(remove);
 	}
+	else{
+		printf("tree empty\n");
+	}
 }
 
 void minMeld(leftistTree *a, leftistTree *b){
@@ -90,9 +93,9 @@ void WminUnion(leftistTree *a, leftistTree *b){
 	leftistTree temp = NULL;
 	/* set a to be the tree with smaller root */
 
-	leftistTree *nowA, *nowB;
-	for(nowA = a, nowB = b;; ){
-		if((*nowA)->data >= (*nowB)->data){
+	leftistTree *nowA, *nowB, *hisA;
+	for(nowA = hisA =a, nowB = b;; ){
+		if((*nowA)->data > (*nowB)->data){
 			SWAP(*nowA, *nowB, temp);
 		}
 		(*nowA)->weight += (*nowB)->weight;
@@ -104,11 +107,32 @@ void WminUnion(leftistTree *a, leftistTree *b){
 				(*nowA)->rightChild = *nowB;
 				if((*nowA)->leftChild->weight < (*nowA)->rightChild->weight)
 					SWAP((*nowA)->leftChild, (*nowA)->rightChild, temp);
+				if((*hisA)->leftChild->weight < (*hisA)->rightChild->weight)
+					SWAP((*hisA)->leftChild, (*hisA)->rightChild, temp);
 			}
+			//if((*nowA)->leftChild->weight < (*nowA)->rightChild->weight)
+			//	SWAP((*nowA)->leftChild, (*nowA)->rightChild, temp);
 			break;
 		}
 		else{
+			hisA = nowA;
 			nowA = &(*nowA)->rightChild;
 		}
 	}
+	if((*a)->rightChild)
+		if((*a)->leftChild->weight < (*a)->rightChild->weight)
+			SWAP((*a)->leftChild, (*a)->rightChild, temp);
+	/*for(nowA = a;;){
+		if(!(*nowA)->rightChild && !(*nowA)->leftChild) break;
+		if((*nowA)->rightChild){
+			if((*nowA)->leftChild->weight < (*nowA)->rightChild->weight){
+				SWAP((*nowA)->leftChild, (*nowA)->rightChild, temp);
+				nowA = &(*nowA)->leftChild;
+			}else{
+				nowA = &(*nowA)->rightChild;
+			}
+		}else{
+			nowA = &(*nowA)->leftChild;
+		}
+	}*/
 }
